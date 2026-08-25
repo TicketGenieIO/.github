@@ -1,0 +1,41 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "TicketGenie organization defaults for predictable, lower-cost dependency updates",
+  "extends": [
+    "config:recommended"
+  ],
+  "timezone": "UTC",
+  "updateNotScheduled": false,
+  "prConcurrentLimit": 3,
+  "packageRules": [
+    {
+      "description": "Keep internal commons contract updates isolated and weekly",
+      "matchPackageNames": [
+        "github.com/ticketgenieio/commons"
+      ],
+      "groupName": "TicketGenie commons",
+      "groupSingleUpdates": true,
+      "schedule": [
+        "before 6am on monday"
+      ]
+    },
+    {
+      "description": "Batch routine third-party updates into one weekly PR",
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "digest",
+        "pin",
+        "pinDigest"
+      ],
+      "matchPackageNames": [
+        "!github.com/ticketgenieio/commons"
+      ],
+      "groupName": "weekly routine dependencies",
+      "groupSingleUpdates": true,
+      "schedule": [
+        "before 6am on monday"
+      ]
+    }
+  ]
+}
